@@ -18,6 +18,9 @@ export class TelegramChatEntity {
   @Column({ unique: true, type: 'bigint' })
   chatId: number;
 
+  @Column({ type: 'text', nullable: true })
+  additionalMessage: string | null;
+
   @OneToMany(() => MessageEntity, (message) => message.chat)
   messages: MessageEntity[];
 
