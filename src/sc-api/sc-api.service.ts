@@ -47,11 +47,13 @@ export class ApiService {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    Logger.log(`Emission data: ${JSON.stringify(data)}`);
+    // Logger.log(`Emission data: ${JSON.stringify(data)}`);
 
     if (data.currentStart) {
       const currentStart = new Date(data.currentStart);
-      const current = await this.emissionRepo.findOne({ where: { start: currentStart } });
+      const current = await this.emissionRepo.findOne({
+        where: { start: currentStart },
+      });
       if (!current) {
         await this.emissionRepo.save({ start: currentStart, end: null });
       }
@@ -65,7 +67,10 @@ export class ApiService {
 
     if (!emission) {
       emission = await this.emissionRepo.save({ start, end });
-    } else if (!emission.end || new Date(emission.end).getTime() !== end.getTime()) {
+    } else if (
+      !emission.end ||
+      new Date(emission.end).getTime() !== end.getTime()
+    ) {
       emission = await this.emissionRepo.save({ ...emission, end });
       endChanged = true;
     }
