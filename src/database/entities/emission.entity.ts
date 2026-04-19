@@ -16,8 +16,8 @@ export class EmissionEntity {
   @Column({ type: 'timestamptz' })
   start: Date;
 
-  @Column({ type: 'timestamptz' })
-  end: Date;
+  @Column({ type: 'timestamptz', nullable: true })
+  end: Date | null;
 
   @OneToMany(() => MessageEntity, (message) => message.emission)
   messages: MessageEntity[];
