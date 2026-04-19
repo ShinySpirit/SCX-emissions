@@ -75,7 +75,7 @@ export class ApiService {
           batch.map(async (chat) => {
             const sent = await this.bot.telegram.sendMessage(
               chat.chatId,
-              `Emission started: ${this.fmtKyiv(start)}\nEnded: ${this.fmtKyiv(end)}`,
+              `Emission started: ${this.fmtKyiv(start)}\nEnded: ${this.fmtKyiv(end)}\n${chat.additionalMessage || ''} `,
             );
             await this.messageRepo.save({
               telegramMessageId: sent.message_id,
@@ -98,7 +98,7 @@ export class ApiService {
             message.chat.chatId,
             Number(message.telegramMessageId),
             undefined,
-            `Emission started: ${this.fmtKyiv(start)}\nEnded: ${this.fmtKyiv(end)}`,
+            `Emission started: ${this.fmtKyiv(start)}\nEnded: ${this.fmtKyiv(end)}\n${message.chat.additionalMessage || ''} `,
           ),
         ),
       );
